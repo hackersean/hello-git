@@ -29,7 +29,7 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr, socklen_t servlen)
 						exit(1); 
 				} 
 				recvline[n] = 0; 
-				fputs(recvline, stdout); 
+			    cout<<"from serve:"<<recvline; 
 		} 
 } 
 int main(int argc, char **argv) 
