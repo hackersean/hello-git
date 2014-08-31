@@ -1,21 +1,24 @@
+#include <iostream>
 #include <sys/types.h> 
 #include <sys/socket.h> 
 #include <string.h> 
 #include <netinet/in.h> 
 #include <stdio.h> 
 #include <stdlib.h> 
+using namespace std;
 #define MAXLINE 80 
 #define SERV_PORT 8888 
 void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen) 
 { 
-int n; 
-socklen_t len; 
-char mesg[MAXLINE]; 
+	int n; 
+	socklen_t len; 
+	char mesg[MAXLINE]; 
 	for(;;) 
 	{ 
 			len = clilen; 
 			n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); 
 			sendto(sockfd, mesg, n, 0, pcliaddr, len); 
+			cout<<"from remote:"<<mesg<<endl;
 	} 
 } 
 int main(void) 
