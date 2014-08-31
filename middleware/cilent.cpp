@@ -50,6 +50,7 @@ int main(int argc, char **argv)
 				exit(1); 
 		} 
 		sockfd = socket(AF_INET, SOCK_DGRAM, 0); 
+		cout<<"client start:"<<endl;
 		do_cli(stdin, sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)); 
 		return 0; 
 }

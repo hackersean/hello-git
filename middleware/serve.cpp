@@ -36,6 +36,7 @@ int main(void)
 			perror("bind error"); 
 			exit(1); 
 	} 
+	cout<<"service start:"<<endl;
 	do_echo(sockfd, (struct sockaddr *)&cliaddr, sizeof(cliaddr)); 
 	return 0; 
 }
