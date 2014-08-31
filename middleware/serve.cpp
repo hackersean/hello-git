@@ -15,10 +15,11 @@ void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
 	char mesg[MAXLINE]; 
 	for(;;) 
 	{ 
+		    memset(mesg,0,sizeof mesg);
 			len = clilen; 
 			n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); 
 			sendto(sockfd, mesg, n, 0, pcliaddr, len); 
-			cout<<"from remote:"<<mesg<<endl;
+			cout<<"from remote:"<<mesg;
 	} 
 } 
 int main(void) 

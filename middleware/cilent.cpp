@@ -1,3 +1,4 @@
+#include <iostream>
 #include <sys/types.h> 
 #include <sys/socket.h> 
 #include <string.h> 
@@ -6,6 +7,7 @@
 #include <stdlib.h> 
 #include <arpa/inet.h> 
 #include <unistd.h> 
+using namespace std;
 #define MAXLINE 80 
 #define SERV_PORT 8888 
 void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr, socklen_t servlen) 
@@ -20,8 +22,7 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr, socklen_t servlen)
 		while(fgets(sendline, MAXLINE, fp) != NULL) 
 		{ 
 				write(sockfd, sendline, strlen(sendline)); 
-				n = read(sockfd, recvline, MAXLINE); ls
-				
+				n = read(sockfd, recvline, MAXLINE); 
 				if(n == -1) 
 				{ 
 						perror("read error"); 
