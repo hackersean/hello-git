@@ -18,18 +18,18 @@ inline void oops(string str)         //出错
     exit(EXIT_FAILURE);
 }
 
-void init()
+void init(int sockfd)
 {
     sockaddr_in servaddr;
 	bzero(&servaddr, sizeof(servaddr)); 
 	servaddr.sin_family = AF_INET;                    //协议设置
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);     //绑定本地
-	servaddr.sin_port = htons(SERV_PORT); 
+	servaddr.sin_port = htons(SERV_PORT);              //绑定端口
 	if(bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1)         //本地结构体用于bind
 			oops("bind error");  
-
-    
 }
+
+
 
 void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen) 
 { 
@@ -39,7 +39,7 @@ void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
 	for(;;) 
 	{ 
 		    memset(mesg,0,sizeof mesg);
-			len = clilen; 
+			len = clilen;                 //源地址长度
 			n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); 
 			sendto(sockfd, mesg, n, 0, pcliaddr, len); 
 			cout<<"from remote:"<<mesg;
@@ -47,10 +47,10 @@ void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
 } 
 int main(void) 
 { 
-	int sockfd=socket(AF_INET, SOCK_DGRAM, 0); 
 	
-
-	sockaddr_in client；
+	int sockfd=socket(AF_INET, SOCK_DGRAM, 0); 
+	init(sockfd);
+	sockaddr_in cliaddr;
 	cout<<"service start:"<<endl;
 	do_echo(sockfd, (struct sockaddr *)&cliaddr, sizeof(cliaddr)); 
 	return 0; 
