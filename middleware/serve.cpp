@@ -7,6 +7,7 @@
 #include <string.h> 
 #include <netinet/in.h> 
 #include <stdio.h> 
+<<<<<<< HEAD
 #include <stdlib.h>
 using namespace std;
 #define LL long long
@@ -86,6 +87,12 @@ void read_data(DATA &data)
 	}
 
 }
+=======
+#include <stdlib.h> 
+using namespace std;
+#define MAXLINE 80 
+#define SERV_PORT 8888 
+>>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
 
 inline void oops(string str)         //出错
 {
@@ -93,7 +100,11 @@ inline void oops(string str)         //出错
     exit(EXIT_FAILURE);
 }
 
+<<<<<<< HEAD
 void init_udp(int sockfd)
+=======
+void init(int sockfd)
+>>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
 {
     sockaddr_in servaddr;
 	bzero(&servaddr, sizeof(servaddr)); 
@@ -105,6 +116,10 @@ void init_udp(int sockfd)
 }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
 void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen) 
 { 
 	int n; 
@@ -115,21 +130,34 @@ void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
 		    memset(mesg,0,sizeof mesg);
 			len = clilen;                 //源地址长度
 			n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); 
+<<<<<<< HEAD
             printf("%s",pcliaddr->sa_data);
+=======
+>>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
 			sendto(sockfd, mesg, n, 0, pcliaddr, len); 
 			cout<<"from remote:"<<mesg;
 	} 
 } 
 int main(void) 
 { 
+<<<<<<< HEAD
 	DATA data;
     read_data(data);
 	int sockfd(socket(AF_INET, SOCK_DGRAM, 0)); 
 	init_udp(sockfd);
 	sockaddr_in cliaddr;
 	exit(0);
+=======
+	
+	int sockfd=socket(AF_INET, SOCK_DGRAM, 0); 
+	init(sockfd);
+	sockaddr_in cliaddr;
+>>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
 	cout<<"service start:"<<endl;
 	do_echo(sockfd, (struct sockaddr *)&cliaddr, sizeof(cliaddr)); 
 	return 0; 
 }
+<<<<<<< HEAD
  
+=======
+>>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
