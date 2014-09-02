@@ -1,3 +1,6 @@
+/*
+         server ·þÎñ¶Ë
+*/
 #include <iostream>
 #include <sys/types.h> 
 #include <sys/socket.h> 
@@ -8,6 +11,13 @@
 using namespace std;
 #define MAXLINE 80 
 #define SERV_PORT 8888 
+
+inline void oops(string str)         //³ö´í
+{
+    perror(str.c_str());
+    exit(EXIT_FAILURE);
+}
+
 void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen) 
 { 
 	int n; 
@@ -33,8 +43,7 @@ int main(void)
 	servaddr.sin_port = htons(SERV_PORT); 
 	if(bind(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) == -1) 
 	{ 
-			perror("bind error"); 
-			exit(1); 
+			oops("bind error");  
 	} 
 	cout<<"service start:"<<endl;
 	do_echo(sockfd, (struct sockaddr *)&cliaddr, sizeof(cliaddr)); 

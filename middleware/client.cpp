@@ -1,3 +1,7 @@
+/*
+         client 客户端
+
+*/
 #include <iostream>
 #include <sys/types.h> 
 #include <fcntl.h>
