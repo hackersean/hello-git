@@ -51,23 +51,24 @@ sockaddr_in init()                  //初始化信息
 	return servaddr;                                        //返回socket
 }
 void do_cli(int sockfd, sockaddr *pservaddr, socklen_t servlen) 
-{ 
+{
 	int n; 
 	char sendline[MAXLINE], recvline[MAXLINE + 1];                             //发送和接收的缓冲区
 	if(connect(sockfd, (struct sockaddr *)pservaddr, servlen) == -1)           //建立连接
 	{ 
 			oops("connect error");  
 	} 
-	sendline[0]='g';
+	sendline[0]='g';   
+	write(sockfd, sendline, 1); 
 	while(true) 
 	{ 
-			write(sockfd, sendline, 1); 
+//			write(sockfd, sendline, 1); 
 			n = read(sockfd, recvline, MAXLINE); 
 			if(n == -1)  
 			    oops("read error"); 
-			else if(recvline[0]='o')
+			else if(recvline[0]=='o')
 				return;
-			cout<<recvline<<endl;
+			fwrite(recvline,n,1,stdout);
 //			cout<<"from serve:"<<recvline; 
 	} 
 } 
@@ -75,7 +76,7 @@ int main(int argc, char **argv)
 { 
 	sockaddr_in servaddr=init();            //初始化信息
 	int sockfd=socket(AF_INET, SOCK_DGRAM, 0);            //用于保存socket文件描述符
-	cout<<"client start:"<<endl;
+//	cout<<"client start:  sss"<<endl;
 	do_cli(sockfd, (sockaddr*) &servaddr, sizeof(servaddr));      //发送执行函数
 	return 0; 
 }
