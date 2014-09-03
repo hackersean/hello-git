@@ -59,16 +59,18 @@ void do_cli(int sockfd, sockaddr *pservaddr, socklen_t servlen)
 			oops("connect error");  
 	} 
 	sendline[0]='g';   
-	write(sockfd, sendline, 1); 
+	write(sockfd, sendline, 1);   
 	while(true) 
-	{ 
-//			write(sockfd, sendline, 1); 
-			n = read(sockfd, recvline, MAXLINE); 
+	{  
+//			write(sockfd, sendline, 1);
+             cout<<"ok"<<endl;
+			n = recv(sockfd, recvline, MAXLINE, 0);
 			if(n == -1)  
 			    oops("read error"); 
 			else if(recvline[0]=='o')
 				return;
-			fwrite(recvline,n,1,stdout);
+		    cout<<recvline<<endl;
+			//fwrite(recvline,n,1,stdout);
 //			cout<<"from serve:"<<recvline; 
 	} 
 } 
