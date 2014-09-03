@@ -130,16 +130,15 @@ void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
 //			n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); 
 //			sendto(sockfd, mesg, n, 0, pcliaddr, len); 
 //			cout<<"from remote:"<<mesg;
-            
 	        if(fgets(temp.str,BUFFER,data.fp)!=NULL)
 			{
 				++js;
 				temp.play();  
-                sendto(sockfd,temp.ans,temp.ps,0,pcliaddr,len);
+                send(sockfd,temp.ans,temp.ps,0); cout<<js<<endl;
 			}
 			else
 		    {
-			    sendto(sockfd,"o",1,0,pcliaddr,len);
+			    send(sockfd,"o",1,0);
 				break;
 			}
 	} 
