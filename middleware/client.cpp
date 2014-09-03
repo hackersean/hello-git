@@ -58,9 +58,10 @@ void do_cli(int sockfd, sockaddr *pservaddr, socklen_t servlen)
 	{ 
 			oops("connect error");  
 	} 
+	sendline[0]='g';
 	while(true) 
 	{ 
-			write(sockfd, sendline, strlen(sendline)); 
+			write(sockfd, sendline, 1); 
 			n = read(sockfd, recvline, MAXLINE); 
 			if(n == -1)  
 			    oops("read error"); 
