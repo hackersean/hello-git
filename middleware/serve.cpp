@@ -1,32 +1,37 @@
 /*
          server 服务端
 */
+
 #include <iostream>
 #include <sys/types.h> 
 #include <sys/socket.h> 
 #include <string.h> 
 #include <netinet/in.h> 
 #include <stdio.h> 
-<<<<<<< HEAD
 #include <stdlib.h>
+
 using namespace std;
 #define LL long long
 #define BUFFER 250
 #define MAXLINE 80 
 #define SERV_PORT 8888 
+#define TCP_PORT 7777
 #define DATA_PATH  "/data/data"
+
+
 
 inline void oops(string str);
 
 struct NODE
 {
 	 static LL num;
+	 int ps;
      char str[BUFFER];
 	 char ans[BUFFER];
      void play()
 	{
-		
-		int len(strlen(str)),ps=0;
+		ps=0;
+		int len(strlen(str));
         sprintf(ans,"%lld",num);
         while(ans[ps]!=0)
 		{
@@ -51,7 +56,7 @@ struct NODE
 		ans[++ps]=0;
 		++ps;
 //		cout<<"ko: "<<ps<<endl;
-		cout<<ans;
+//		cout<<ans;
 		++num;
 	}
 };
@@ -75,24 +80,17 @@ struct DATA
 
 
     
-};
+}data;
 
 void read_data(DATA &data)
 {
 	NODE temp;
-    while(fgets(temp.str,BUFFER,data.fp)!=NULL)
+    if(fgets(temp.str,BUFFER,data.fp)!=NULL)
 	{
 	      temp.play();
-
 	}
 
 }
-=======
-#include <stdlib.h> 
-using namespace std;
-#define MAXLINE 80 
-#define SERV_PORT 8888 
->>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
 
 inline void oops(string str)         //出错
 {
@@ -100,11 +98,7 @@ inline void oops(string str)         //出错
     exit(EXIT_FAILURE);
 }
 
-<<<<<<< HEAD
 void init_udp(int sockfd)
-=======
-void init(int sockfd)
->>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
 {
     sockaddr_in servaddr;
 	bzero(&servaddr, sizeof(servaddr)); 
@@ -116,48 +110,42 @@ void init(int sockfd)
 }
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
+
+
 void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen) 
 { 
 	int n; 
 	socklen_t len; 
 	char mesg[MAXLINE]; 
+	NODE temp;
 	for(;;) 
 	{ 
 		    memset(mesg,0,sizeof mesg);
-			len = clilen;                 //源地址长度
+			len = clilen;                                                             //源地址长度
 			n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); 
-<<<<<<< HEAD
-            printf("%s",pcliaddr->sa_data);
-=======
->>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
-			sendto(sockfd, mesg, n, 0, pcliaddr, len); 
-			cout<<"from remote:"<<mesg;
+//			sendto(sockfd, mesg, n, 0, pcliaddr, len); 
+//			cout<<"from remote:"<<mesg;
+
+	        if(fgets(temp.str,BUFFER,data.fp)!=NULL)
+			{
+				temp.play();
+                sendto(sockfd,temp.ans,temp.ps,0,pcliaddr,len);
+			}
 	} 
 } 
 int main(void) 
 { 
-<<<<<<< HEAD
-	DATA data;
-    read_data(data);
+	
+//    read_data(data);
 	int sockfd(socket(AF_INET, SOCK_DGRAM, 0)); 
 	init_udp(sockfd);
-	sockaddr_in cliaddr;
-	exit(0);
-=======
 	
-	int sockfd=socket(AF_INET, SOCK_DGRAM, 0); 
-	init(sockfd);
+
+
 	sockaddr_in cliaddr;
->>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
 	cout<<"service start:"<<endl;
 	do_echo(sockfd, (struct sockaddr *)&cliaddr, sizeof(cliaddr)); 
 	return 0; 
 }
-<<<<<<< HEAD
  
-=======
->>>>>>> 0cfcd5e4e9980c2d5f6cef39f80a79d4a28735de
