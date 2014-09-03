@@ -114,25 +114,36 @@ void init_udp(int sockfd)
 
 
 void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen) 
-{ 
+{
 	int n; 
 	socklen_t len; 
 	char mesg[MAXLINE]; 
 	NODE temp;
+	memset(mesg,0,sizeof mesg);
+	n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); 
+    cout<<mesg<<endl;
+	LL js=0;
 	for(;;) 
 	{ 
-		    memset(mesg,0,sizeof mesg);
+//		    
 			len = clilen;                                                             //源地址长度
-			n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); 
+//			n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); 
 //			sendto(sockfd, mesg, n, 0, pcliaddr, len); 
-			cout<<"from remote:"<<mesg;
-
+//			cout<<"from remote:"<<mesg;
+            
 	        if(fgets(temp.str,BUFFER,data.fp)!=NULL)
 			{
-				temp.play();
+				++js;
+				temp.play();  
                 sendto(sockfd,temp.ans,temp.ps,0,pcliaddr,len);
 			}
+			else
+		    {
+			    sendto(sockfd,"o",1,0,pcliaddr,len);
+				break;
+			}
 	} 
+	cout<<js<<endl;
 } 
 int main(void) 
 { 
@@ -144,8 +155,9 @@ int main(void)
 
 
 	sockaddr_in cliaddr;
-	cout<<"service start:"<<endl;
+//	cout<<"service start:"<<endl;
 	do_echo(sockfd, (struct sockaddr *)&cliaddr, sizeof(cliaddr)); 
+	cout<<"end"<<endl;
 	return 0; 
 }
  
