@@ -125,7 +125,7 @@ void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
 			len = clilen;                                                             //源地址长度
 			n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); 
 //			sendto(sockfd, mesg, n, 0, pcliaddr, len); 
-//			cout<<"from remote:"<<mesg;
+			cout<<"from remote:"<<mesg;
 
 	        if(fgets(temp.str,BUFFER,data.fp)!=NULL)
 			{
